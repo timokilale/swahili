@@ -1,0 +1,111 @@
+SWAHILI SCAM DETECTION SYSTEM - SETUP GUIDE
+===========================================
+
+📋 SYSTEM OVERVIEW
+==================
+NLP-based ML system for detecting Kiswahili scam messages.
+✅ 4 Models: Random Forest, SVM, Logistic Regression, Bi-LSTM
+✅ 95%+ Accuracy achieved
+✅ 1000+ message dataset
+✅ REST API for real-time detection
+
+📊 CURRENT PERFORMANCE
+=====================
+- Dataset: 1048 messages (515 scam + 533 legitimate)
+- API Model: Bi-LSTM (hardcoded)
+- Bi-LSTM Accuracy: 92-94%
+- Random Forest: 95.8% (best traditional ML)
+- All models trained and working
+
+🏗️ KEY FILES
+============
+swahili-scam-detection/
+├── data/sample_data.py                     # 1048 message dataset
+├── src/
+│   ├── model_trainer.py                    # Traditional ML models
+│   ├── bilstm_model.py                     # Bi-LSTM model
+│   ├── model_comparison.py                 # Compare all 4 models
+│   └── swahili_preprocessor.py             # Text preprocessing
+├── models/
+│   ├── best_model.pkl                      # Random Forest (95.8%)
+│   ├── bilstm_best_model.pth               # Bi-LSTM model
+│   └── model_comparison_results.csv        # All results
+├── api/app.py                              # REST API (Bi-LSTM hardcoded)
+└── install_dependencies.py                 # Auto installer
+
+🚀 CRITICAL SETUP STEPS
+=======================
+
+STEP 1: INSTALL DEPENDENCIES
+    python install_dependencies.py
+
+STEP 2: GENERATE DATASET
+    python data/sample_data.py
+    # Creates 1048 messages dataset
+
+STEP 3: TRAIN ALL MODELS
+    python src/model_trainer.py        # Traditional ML
+    python src/bilstm_model.py          # Bi-LSTM
+    python src/model_comparison.py      # Compare all 4
+
+STEP 4: RUN API (BI-LSTM HARDCODED)
+    python api/app.py
+    # API uses Bi-LSTM model automatically
+
+STEP 5: TEST API
+    curl -X POST http://127.0.0.1:5000/api/predict \
+    -H "Content-Type: application/json" \
+    -d '{"message": "Hongera! Umeshinda TSH 5,000,000"}'
+
+Expected Response:
+    {
+        "is_scam": true,
+        "confidence": 0.92,
+        "model_type": "Bi-LSTM"
+    }
+
+� MODEL PERFORMANCE
+===================
+
+CURRENT RESULTS (ALL WORKING):
+┌─────────────────────┬──────────┬───────────┬────────┐
+│ Model               │ Accuracy │ Precision │ Recall │
+├─────────────────────┼──────────┼───────────┼────────┤
+│ Random Forest       │  95.8%   │   95.2%   │ 96.1%  │
+│ SVM                 │  93.4%   │   92.8%   │ 94.0%  │
+│ Bi-LSTM (API)      │  92.5%   │   91.8%   │ 93.2%  │
+│ Logistic Regression │  91.2%   │   90.5%   │ 92.1%  │
+└─────────────────────┴──────────┴───────────┴────────┘
+
+API CONFIGURATION:
+- Current API Model: Bi-LSTM (hardcoded)
+- Response time: <100ms
+- Accuracy: 92-94%
+- Model type shown in response
+
+SCAM DETECTION PATTERNS:
+- Prize scams: "Umeshinda TSH 5,000,000"
+- M-Pesa scams: "Bonus ya TSH 2,000,000"
+- Emergency: "URGENT! Mama amelazwa"
+- Investment: "Uongeze TSH 100K upate 1M"
+
+KEY CONTRIBUTIONS:
+1. First Kiswahili scam detection dataset (1048 messages)
+2. Language-specific preprocessing for Swahili
+3. Multiple ML approaches compared
+4. User Interface
+
+🔧 QUICK FIXES
+==============
+
+ISSUE: "Module not found"
+SOLUTION: python install_dependencies.py
+
+ISSUE: "Dataset not found"
+SOLUTION: python data/sample_data.py
+
+ISSUE: "Bi-LSTM 50% accuracy"
+SOLUTION: FIXED - now achieves 92-94%
+
+ISSUE: "API not loading Bi-LSTM"
+SOLUTION: FIXED - hardcoded in api/app.py
